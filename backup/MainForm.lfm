@@ -10,6 +10,7 @@ object frmMain: TfrmMain
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
+  OnClose = FormClose
   OnCreate = FormCreate
   Position = poScreenCenter
   LCLVersion = '3.2.0.0'
@@ -87,6 +88,7 @@ object frmMain: TfrmMain
     ClientWidth = 713
     ParentBackground = False
     TabOrder = 3
+    OnClick = pnlTopClick
     object lblOrigin: TLabel
       Left = 8
       Height = 13
@@ -135,14 +137,13 @@ object frmMain: TfrmMain
       TabOrder = 3
       OnClick = btnSelectClick
     end
-    object edtOrigin: TEdit
+    object edtDirectory: TEdit
       Left = 8
       Height = 21
       Top = 25
       Width = 456
       Anchors = [akTop, akLeft, akRight]
       TabOrder = 4
-      Text = 'd:\Sviluppo\Delphi\Librerie 10.3\'
     end
     object btnExecute: TButton
       Left = 632

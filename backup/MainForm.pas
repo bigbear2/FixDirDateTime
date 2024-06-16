@@ -3,9 +3,9 @@ unit MainForm;
 interface
 
 uses
-  LCLIntf, LCLType, LMessages,
+  LCLIntf, LCLType,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, FileCtrl, ImgList, StdCtrls, ExtCtrls, DateUtils, ComCtrls, Spin;
+  Dialogs, ImgList, StdCtrls, ExtCtrls, DateUtils, ComCtrls, Spin, IniFiles;
 
 type
 
@@ -18,7 +18,7 @@ type
     chkForceChangeDateTime: TCheckBox;
     chkLog: TCheckBox;
     chkSubDirectory: TCheckBox;
-    edtOrigin: TEdit;
+    edtDirectory: TEdit;
     il16: TImageList;
     lblOrigin: TLabel;
     mmoLog: TMemo;
@@ -33,6 +33,7 @@ type
     procedure btnSelectClick(Sender: TObject);
     procedure chkLogChange(Sender: TObject);
     procedure chkSubDirectoryChange(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure lvDirCustomDrawItem(Sender: TCustomListView; Item: TListItem;
       State: TCustomDrawState; var DefaultDraw: boolean);
@@ -48,10 +49,13 @@ type
     procedure RecursiveFixFolder(Directory: string);
     procedure Preview(Directory: string; Level: integer);
     procedure EnableMainControls(Value: boolean);
+    procedure SavePreferences();
+    procedure LoadPreferences();
   end;
 
 var
   frmMain: TfrmMain;
+  AppDir: string;
 
 const
   ERROR_NO_DIR = 'Select a folder before proceeding with the select operation!';
@@ -178,6 +182,44 @@ begin
   Result := MaxDateTime;
 end;
 
+
+
+procedure TfrmMain.SavePreferences();
+begin
+  with TIniFile.Create(AppDir + 'FixDirDateTime.ini') do
+  begin
+
+    WriteString('Preferences', 'Folder', edtDirectory.Text);
+    WriteBool('Preferences', 'ForceChangeDateTime', chkForceChangeDateTime.Checked);
+    WriteBool('Preferences', 'SubDirectory', chkSubDirectory.Checked);
+    WriteInteger('Preferences', 'SubDirectoryLevel', seLevel.Value);
+    WriteBool('Preferences', 'Log', chkLog.Checked);
+
+    Free;
+
+  end;
+end;
+
+procedure TfrmMain.LoadPreferences();
+begin
+  with TIniFile.Create(AppDir + 'FixDirDateTime.ini') do
+  begin
+
+    edtDirectory.Text := ReadString('Preferences', 'Folder', '');
+    chkForceChangeDateTime.Checked :=
+      ReadBool('Preferences', 'ForceChangeDateTime', True);
+
+    chkSubDirectory.Checked := ReadBool('Preferences', 'SubDirectory', True);
+    seLevel.Value := ReadInteger('Preferences', 'SubDirectoryLevel', 0);
+    chkLog.Checked := ReadBool('Preferences', 'Log', False);
+    Free;
+
+  end;
+
+  seLevel.Enabled := chkSubDirectory.Checked;
+  mmoLog.Visible := chkLog.Checked;
+
+end;
 
 procedure TfrmMain.EnableMainControls(Value: boolean);
 begin
@@ -433,9 +475,17 @@ begin
   seLevel.Enabled := chkSubDirectory.Checked;
 end;
 
+procedure TfrmMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  SavePreferences();
+end;
+
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
+  AppDir := ExtractFilePath(ParamStr(0));
   MinDateTime := EncodeDateTime(1901, 1, 1, 1, 1, 1, 1);
+
+  LoadPreferences();
 end;
 
 procedure TfrmMain.lvDirCustomDrawItem(Sender: TCustomListView;
