@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Height = 557
   Top = 238
   Width = 713
-  Caption = 'FixDirDateTime'
+  Caption = 'FixDirDateTime v2024.06.16 - Fabio L.'
   ClientHeight = 557
   ClientWidth = 713
   Color = clBtnFace
@@ -58,6 +58,7 @@ object frmMain: TfrmMain
         Alignment = taCenter
         Caption = 'Level'
       end>
+    GridLines = True
     ReadOnly = True
     RowSelect = True
     SmallImages = il16
@@ -93,17 +94,6 @@ object frmMain: TfrmMain
       Width = 48
       Caption = 'Directory:'
     end
-    object btnProcess: TButton
-      Left = 472
-      Height = 25
-      Top = 53
-      Width = 75
-      Anchors = [akTop, akRight]
-      Caption = 'Process'
-      TabOrder = 0
-      Visible = False
-      OnClick = btnProcessClick
-    end
     object btnPreview: TButton
       Left = 552
       Height = 25
@@ -111,7 +101,7 @@ object frmMain: TfrmMain
       Width = 75
       Anchors = [akTop, akRight]
       Caption = 'Preview'
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnPreviewClick
     end
     object chkForceChangeDateTime: TCheckBox
@@ -122,7 +112,7 @@ object frmMain: TfrmMain
       Caption = 'Force Change DateTime'
       Checked = True
       State = cbChecked
-      TabOrder = 2
+      TabOrder = 1
     end
     object chkSubDirectory: TCheckBox
       Left = 151
@@ -132,7 +122,7 @@ object frmMain: TfrmMain
       Caption = 'Chanche Sub Directory'
       Checked = True
       State = cbChecked
-      TabOrder = 3
+      TabOrder = 2
       OnChange = chkSubDirectoryChange
     end
     object btnSelect: TButton
@@ -142,7 +132,7 @@ object frmMain: TfrmMain
       Width = 75
       Anchors = [akTop, akRight]
       Caption = 'Select'
-      TabOrder = 4
+      TabOrder = 3
       OnClick = btnSelectClick
     end
     object edtOrigin: TEdit
@@ -151,7 +141,7 @@ object frmMain: TfrmMain
       Top = 25
       Width = 456
       Anchors = [akTop, akLeft, akRight]
-      TabOrder = 5
+      TabOrder = 4
       Text = 'd:\Sviluppo\Delphi\Librerie 10.3\'
     end
     object btnExecute: TButton
@@ -161,7 +151,7 @@ object frmMain: TfrmMain
       Width = 75
       Anchors = [akTop, akRight]
       Caption = 'Execute'
-      TabOrder = 6
+      TabOrder = 5
       OnClick = btnExecuteClick
     end
     object chkLog: TCheckBox
@@ -170,7 +160,7 @@ object frmMain: TfrmMain
       Top = 55
       Width = 64
       Caption = 'Show Log'
-      TabOrder = 7
+      TabOrder = 6
       OnChange = chkLogChange
     end
     object seLevel: TSpinEdit
@@ -183,7 +173,7 @@ object frmMain: TfrmMain
       MaxValue = 100000
       ParentShowHint = False
       ShowHint = True
-      TabOrder = 8
+      TabOrder = 7
     end
   end
   object Splitter1: TSplitter

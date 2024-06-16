@@ -14,7 +14,6 @@ type
   TfrmMain = class(TForm)
     btnExecute: TButton;
     btnPreview: TButton;
-    btnProcess: TButton;
     btnSelect: TButton;
     chkForceChangeDateTime: TCheckBox;
     chkLog: TCheckBox;
@@ -307,19 +306,7 @@ end;
 
 procedure TfrmMain.btnProcessClick(Sender: TObject);
 begin
-  lvDir.Items.BeginUpdate;
-  lvDir.Items.Clear;
 
-  FPath := ExcludeTrailingPathDelimiter(edtOrigin.Text);
-  FRootDateTime := GetFileMaxDate(FPath);
-  Debug('Max File DateTime in Root: ' + DateTimeToStr(FRootDateTime));
-
-
-  RecursiveFixFolder(FPath);
-
-  lvDir.Items.EndUpdate;
-
-  SetPanelText('Folder Found: ' + lvDir.Items.Count.ToString);
 end;
 
 procedure TfrmMain.btnPreviewClick(Sender: TObject);

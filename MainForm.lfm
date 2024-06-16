@@ -142,7 +142,6 @@ object frmMain: TfrmMain
       Width = 456
       Anchors = [akTop, akLeft, akRight]
       TabOrder = 4
-      Text = 'd:\Sviluppo\Delphi\Librerie 10.3\'
     end
     object btnExecute: TButton
       Left = 632
